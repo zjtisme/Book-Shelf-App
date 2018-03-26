@@ -83,7 +83,7 @@ class HomePage extends Component {
         <TopBar userName={this.props.userName} handleLogout={this.props.handleLogout}/>
         <h1 className="page-title">Book-shelf App</h1>
           <div className="row">
-            <div className="columns small-centered small-10 medium-6 large-4">
+            <div className="columns small-centered small-10 medium-6 large-6">
               <SearchBox handleSearch={this.setSearchText}/>
               <BookList handleDeleteBook={this.deleteBook} handleUpdateBook={this.updateBook} bookList={this.state.bookList} searchText={this.state.searchText}/>
               <AddBook addFormError={this.state.addFormError} handleAddBook={this.createBook}/>

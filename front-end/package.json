@@ -1,7 +1,7 @@
 {
   "name": "book-shelf",
   "version": "0.1.0",
-  "proxy": "http://localhost:8080",
+  "proxy": "http://api-gateway:8080",
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
