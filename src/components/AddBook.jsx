@@ -17,13 +17,22 @@ class AddBook extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container__footer">
         <form onSubmit={this.handleSubmit}>
-          <input name="title" ref="title" placeholder="title of this book..."/><br/>
-          <input name="author" ref="author" placeholder="author of this book..."/><br/>
-          <textarea name="description" ref="description" placeholder="please add some description..."></textarea>
-          <input type="submit" value="Add Book" className="button"/>
-          <p>{this.props.addFormError}</p>
+          <label>
+            <input type="text" name="title" ref="title" placeholder="title of this book..."/>
+          </label>
+
+          <label>
+            <input type="text" name="author" ref="author" placeholder="author of this book..."/>
+          </label>
+
+          <label>
+            <textarea name="description" ref="description" placeholder="please add some description..."></textarea>
+          </label>
+
+          <input type="submit" value="Add Book" className="button expanded"/>
+          <p className="error-message">{this.props.addFormError}</p>
         </form>
       </div>
     );

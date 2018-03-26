@@ -24,6 +24,10 @@ class HomePage extends Component {
   }
 
   createBook = async (title, author, description) => {
+    if(title.length === 0 || author.length === 0 || description.length === 0) {
+      this.setState({...this.state, addFormError:'All fields are required...'});
+      return;
+    }
     const userId = this.props.userId;
     try {
       const newBook = {
@@ -35,7 +39,7 @@ class HomePage extends Component {
       const response = await axios.post('/books/books', newBook);
       const newList = this.state.bookList;
       newList.push(response.data);
-      this.setState({...this.state, bookList: newList});
+      this.setState({...this.state, bookList: newList, addFormError: ''});
     } catch (error) {
       console.log('Error creating new book!');
       console.log(error);
@@ -78,10 +82,13 @@ class HomePage extends Component {
       <div>
         <TopBar userName={this.props.userName} handleLogout={this.props.handleLogout}/>
         <h1 className="page-title">Book-shelf App</h1>
-        <SearchBox handleSearch={this.setSearchText}/>
-        <hr/>
-        <BookList handleDeleteBook={this.deleteBook} handleUpdateBook={this.updateBook} bookList={this.state.bookList} searchText={this.state.searchText}/>
-        <AddBook addFormError={this.state.addFormError} handleAddBook={this.createBook}/>
+          <div className="row">
+            <div className="columns small-centered small-10 medium-6 large-4">
+              <SearchBox handleSearch={this.setSearchText}/>
+              <BookList handleDeleteBook={this.deleteBook} handleUpdateBook={this.updateBook} bookList={this.state.bookList} searchText={this.state.searchText}/>
+              <AddBook addFormError={this.state.addFormError} handleAddBook={this.createBook}/>
+            </div>
+          </div>
       </div>
     );
   }

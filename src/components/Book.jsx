@@ -4,6 +4,7 @@ class Book extends Component {
 
   state = {
     onchange: false,
+    errorMSG: '',
     updatedBook: {
       'title': this.props.title,
       'author': this.props.author,
@@ -43,11 +44,16 @@ class Book extends Component {
     const authorRef = this.refs.author;
     const descriptionRef = this.refs.description;
 
+    if(titleRef.value.length === 0 || authorRef.value.length === 0 || descriptionRef.value.length === 0) {
+      this.setState({...this.state, errorMSG: 'All fields are required...'});
+      return;
+    }
+
     const bookId = this.props.id;
     const bookIndex = this.props.index;
 
     this.props.handleUpdateBook(bookId, bookIndex, this.state.updatedBook);
-    this.setState({...this.state, onchange: false});
+    this.setState({...this.state, onchange: false, errorMSG: ''});
     titleRef.disabled = true;
     authorRef.disabled = true;
     descriptionRef.disabled = true;
@@ -68,7 +74,7 @@ class Book extends Component {
         return <button className="success button" onClick={this.prepareModify}>Modify</button>;
       } else {
         return (
-          <div>
+          <div className="expanded button-group">
             <button className="success button" onClick={this.doUpdateBook}>OK</button>
             <button className="primary button" onClick={this.resetAll}>Cancel</button>
           </div>
@@ -78,14 +84,24 @@ class Book extends Component {
 
 
     return (
-      <div>
-        <p>id: {this.props.id}</p>
-        Title:<input name="title" ref="title" value={this.state.updatedBook.title} onChange={this.handleChange} disabled="disabled"/><br/>
-      Author:<input name="author" ref="author" value={this.state.updatedBook.author} onChange={this.handleChange} disabled="disabled"/><br/>
-    Description:<textarea name="description" ref="description" value={this.state.updatedBook.description} onChange={this.handleChange} disabled="disabled"></textarea>
-    {renderButtons()}
-        <button className="alert button" onClick={this.doDeleteBook}>Delete</button>
-        <hr/>
+      <div className="container">
+        <label>Title:
+          <input type="text" name="title" ref="title" value={this.state.updatedBook.title} onChange={this.handleChange} disabled="disabled"/>
+        </label>
+
+        <label>Author:
+          <input type="text" name="author" ref="author" value={this.state.updatedBook.author} onChange={this.handleChange} disabled="disabled"/>
+        </label>
+
+        <label>Description:
+          <textarea name="description" ref="description" value={this.state.updatedBook.description} onChange={this.handleChange} disabled="disabled"></textarea>
+        </label>
+
+        <div className="expanded button-group">
+          {renderButtons()}
+          <button className="alert button expanded" onClick={this.doDeleteBook}>Delete</button>
+        </div>
+        <p className="error-message">{this.state.errorMSG}</p>
       </div>
     );
   }

@@ -15,21 +15,31 @@ class Signup extends Component {
   render() {
     return (
       <div>
-        <h1 className="page-title">Book-shelf App</h1>
+        <h1 className="page-title">Book-Shelf App</h1>
+          <div className="row">
+            <div className="columns small-centered small-10 medium-6 large-4">
         <div className="callout callout-auth">
-          <h3>Sign Up</h3>
-          Username: <input type="text" ref="username" name="username" placeholder="input username..."/>
-        Password:<input type="password" ref="pass1" name="password1" placeholder="input password..."/>
-      Password Again: <input type="password" ref="pass2" name="password2" placeholder="input password again..."/>
-          <div className="expanded button-group">
+          <h3 className="component-title">Sign Up</h3>
+          <label className="input-form">Username:
+            <input type="text" ref="username" name="username" placeholder="input username..."/>
+          </label>
+          <label className="input-form">Password:
+            <input type="password" ref="pass1" name="password1" placeholder="input password..."/>
+          </label>
+          <label className="input-form">Password Again:
+            <input type="password" ref="pass2" name="password2" placeholder="input password again..."/>
+          </label>
+          <div className="expanded button-group input-form">
             <button className="success button" onClick={this.doSignup}>OK</button>
             <Link className="alert button" to="/">Cancel</Link>
           </div>
           <div>
-            <p>{this.props.signupErrorMSG}</p>
+            <p className="error-message">{this.props.signupErrorMSG}</p>
           </div>
         </div>
       </div>
+    </div>
+  </div>
     );
   }
 }

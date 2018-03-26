@@ -21,9 +21,21 @@ class BookList extends Component {
       return <Book {...book} handleDeleteBook={this.props.handleDeleteBook} handleUpdateBook={this.props.handleUpdateBook} index={index} key={book.id}/>;
     });
 
+    const renderBookList = () => {
+      if(finalBookList.length === 0) {
+        return <p className="error-message">No books are available now...</p>
+      } else {
+        return (
+          <div>
+            {finalBookList}
+          </div>
+        );
+      }
+    };
+
     return (
       <div>
-        {finalBookList}
+        {renderBookList()}
       </div>
     );
   }

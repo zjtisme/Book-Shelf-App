@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import axios from 'axios';
 
 import Login from './components/Login';
 import Signup from './components/Signup';
 import HomePage from './components/HomePage';
 
+import './App.css'
 
 class App extends Component {
 
@@ -76,7 +77,7 @@ class App extends Component {
 
       const response = await axios.post('/users/users', newUser);
       if(response.status === 200)
-        this.setState({...this.state, signupErrorMSG: 'Register successfully, enjoy!'});
+        this.setState({...this.state, login: true, userName: response.data['userName'], userId: response.data['id']});
       else {
         this.setState({...this.state, signupErrorMSG: 'Error occurs, the status code is: ' + response.status});
       }
@@ -89,7 +90,7 @@ class App extends Component {
 
   render() {
     const LoginComponent = () => (<Login {...this.state} handleLogin={this.handleLogin}/>);
-    const SignupComponent = () => (<Signup {...this.state} handleSignup={this.handleSignup}/>);
+    const SignupComponent = () => (this.state.login?(<Redirect to="/"/>):(<Signup {...this.state} handleSignup={this.handleSignup}/>));
     const HomePageComponent = () => (<HomePage {...this.state} handleLogout={this.handleLogout}/>);
 
     return (
